@@ -1,14 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-
+import store from './../store'
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/todolsit',
+    components: {
+      default:() => import(/* webpackChunkName: "ToDoList" */ '../views/ToDoList.vue'),
+    },
+    children:[
+      { path: '', component: () => import(/* webpackChunkName: "List" */ '../views/List.vue'), },
+      { path: 'test', component: () => import(/* webpackChunkName: "Test" */ '../views/Test.vue'), },
+    ]
   },
   {
     path: '/about',
@@ -25,5 +35,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+
+//   // ...
+// })
 
 export default router

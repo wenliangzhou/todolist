@@ -13,47 +13,29 @@
         theme="dark"
         :default-selected-keys="['1']"
         :default-open-keys="['sub1']"
+        :selectedKeys=[key]
         :style="{ height: '100%', borderRight: 0 }"
       >
         <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" /><span v-show="!collapsed">菜单一</span></span>
+          <span slot="title">
+            <a-icon type="user" /><span v-show="!collapsed">项目</span>
+          </span>
           <a-menu-item key="1">
-            <a-icon type="pie-chart" />
-            <span>Option 1</span>
+            <router-link to="/todolsit">ToDoList</router-link>
           </a-menu-item>
           <a-menu-item key="2">
-            <a-icon type="pie-chart" />
-            <span>Option 1</span>
-          </a-menu-item>
-          <a-menu-item key="3">
-            <a-icon type="pie-chart" />
-            <span>Option 1</span>
-          </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <a-menu-item key="5">
-            <a-icon type="pie-chart" />
-            <span>Option 1</span>
-          </a-menu-item>
-          <a-menu-item key="6">
-            <a-icon type="pie-chart" />
-            <span>Option 1</span>
-          </a-menu-item>
-          <a-menu-item key="7">
-           <a-icon type="pie-chart" />
-            <span>Option 1</span>
+            <router-link to="/todolsit/test">测试</router-link>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
     <a-layout style="padding: 0 24px 24px">
       <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>Home</a-breadcrumb-item>
+        <a-breadcrumb-item>Todolsit</a-breadcrumb-item>
         <a-breadcrumb-item>List</a-breadcrumb-item>
-        <a-breadcrumb-item>App</a-breadcrumb-item>
       </a-breadcrumb>
       <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }">
-        Content
+        <router-view></router-view>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -62,11 +44,19 @@
 
 <script>
 export default {
+  name: "ToDoList",
   props: ["collapsed"],
   data() {
-    return {
- 
-    };
+    return {};
+  },
+  computed: {
+    key() {
+      if (/test/.test(this.$route.path)) {
+        return "2";
+      } else {
+        return "1";
+      }
+    },
   },
 };
 </script>
